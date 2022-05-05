@@ -2,12 +2,12 @@
  * @name CloaksPlusImageUtilitys
  * @author Softiscold
  * @authorId 437098129373003776
- * @version 1.7.4
+ * @version 1.8.0
  * @description adds a few more Utilities to help enhance the cape verification process.
  * @donate https://www.paypal.me/GamingReflexYT
  * @website https://softiscold.xyz
- * @source https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/ImageUtilities/
- * @updateUrl https://mwittrien.github.io/BetterDiscordAddons/Plugins/ImageUtilities/ImageUtilities.plugin.js
+ * @source https://github.com/softiscold/plugins/
+ * @updateUrl https://github.com/softiscold/plugins/blob/master/CloaksPlusImageUtilitys.plugin.js
  */
 
 module.exports = (_ => {
@@ -15,7 +15,7 @@ module.exports = (_ => {
         "info": {
             "name": "Cloaks+ Image Utilities",
             "author": "Soft",
-            "version": "1.7.4",
+            "version": "1.8.0,
             "description": "Adds a few more Utilities to help enhance the cape verification process."
         },
         "changeLog": {
@@ -112,7 +112,7 @@ module.exports = (_ => {
             }
             render() {
                 return !this.props.attachment ? null : BDFDB.ReactUtils.createElement("span", {
-                    className: BDFDB.disCN._imageutilitiesimagedetails,
+                    className: BDFDB.disCN._cloaksplusimagedetails,
                     children: [
                         BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Anchor, {
                             title: this.props.original,
@@ -184,38 +184,38 @@ module.exports = (_ => {
                 };
 
                 this.css = `
-					${BDFDB.dotCN._imageutilitiesimagedetails} {
+					${BDFDB.dotCN._cloaksplusimagedetails} {
 						display: inline-flex;
 					}
-					${BDFDB.dotCNS.spoilerhidden + BDFDB.dotCN._imageutilitiesimagedetails} {
+					${BDFDB.dotCNS.spoilerhidden + BDFDB.dotCN._cloaksplusimagedetails} {
 						visibility: hidden;
 					}
-					span + ${BDFDB.dotCN._imageutilitiesimagedetails} {
+					span + ${BDFDB.dotCN._cloaksplusimagedetails} {
 						margin-left: 12px;
 					}
-					${BDFDB.dotCN._imageutilitiesimagedetails} > * {
+					${BDFDB.dotCN._cloaksplusimagedetails} > * {
 						display: inline-block;
 						margin-right: 12px;
 						overflow: hidden;
 						text-overflow: ellipsis;
 						white-space: nowrap;
 					}
-					${BDFDB.dotCN._imageutilitiesimagedetails} > a {
+					${BDFDB.dotCN._cloaksplusimagedetails} > a {
 						max-width: 300px;
 					}
-					span + ${BDFDB.dotCN._imageutilitiesimagedetails} > a {
+					span + ${BDFDB.dotCN._cloaksplusimagedetails} > a {
 						max-width: 200px;
 					}
-					${BDFDB.dotCN._imageutilitiesimagedetails} > span {
+					${BDFDB.dotCN._cloaksplusimagedetails} > span {
 						max-width: 100px;
 					}
-					${BDFDB.dotCN._imageutilitiesgallery},
-					${BDFDB.dotCN._imageutilitiesdetailsadded} {
+					${BDFDB.dotCN._cloaksplusgallery},
+					${BDFDB.dotCN._cloaksplusdetailsadded} {
 						transform: unset !important;
 						filter: unset !important;
 						backdrop-filter: unset !important;
 					}
-					${BDFDB.dotCN._imageutilitiessibling} {
+					${BDFDB.dotCN._cloaksplussibling} {
 						display: flex;
 						align-items: center;
 						position: fixed;
@@ -223,47 +223,47 @@ module.exports = (_ => {
 						bottom: 50%;
 						cursor: pointer;
 					}
-					${BDFDB.dotCN._imageutilitiesprevious} {
+					${BDFDB.dotCN._cloaksplusprevious} {
 						justify-content: flex-end;
 						right: 90%;
 					} 
-					${BDFDB.dotCN._imageutilitiesnext} {
+					${BDFDB.dotCN._cloaksplusnext} {
 						justify-content: flex-start;
 						left: 90%;
 					}
-					${BDFDB.dotCN._imageutilitiesswitchicon} {
+					${BDFDB.dotCN._cloaksplusswitchicon} {
 						position: absolute;
 						background: rgba(0, 0, 0, 0.3);
 						border-radius: 50%;
 						padding: 15px;
 						transition: all 0.3s ease;
 					}
-					${BDFDB.dotCNS._imageutilitiesprevious + BDFDB.dotCN._imageutilitiesswitchicon} {
+					${BDFDB.dotCNS._cloaksplusprevious + BDFDB.dotCN._cloaksplusswitchicon} {
 						right: 10px;
 					} 
-					${BDFDB.dotCNS._imageutilitiesnext + BDFDB.dotCN._imageutilitiesswitchicon} {
+					${BDFDB.dotCNS._cloaksplusnext + BDFDB.dotCN._cloaksplusswitchicon} {
 						left: 10px;
 					}
-					${BDFDB.dotCNS._imageutilitiessibling + BDFDB.dotCN.spinner} {
+					${BDFDB.dotCNS._cloaksplussibling + BDFDB.dotCN.spinner} {
 						position: absolute;
 					}
-					${BDFDB.dotCNS._imageutilitiesprevious + BDFDB.dotCN.spinner} {
+					${BDFDB.dotCNS._cloaksplusprevious + BDFDB.dotCN.spinner} {
 						right: 21px;
 					}
-					${BDFDB.dotCNS._imageutilitiesnext + BDFDB.dotCN.spinner} {
+					${BDFDB.dotCNS._cloaksplusnext + BDFDB.dotCN.spinner} {
 						left: 21px;
 					}
-					${BDFDB.dotCN._imageutilitiessibling}:hover ${BDFDB.dotCN._imageutilitiesswitchicon} {
+					${BDFDB.dotCN._cloaksplussibling}:hover ${BDFDB.dotCN._cloaksplusswitchicon} {
 						background: rgba(0, 0, 0, 0.5);
 					}
-					${BDFDB.dotCN._imageutilitiesdetailswrapper} {
+					${BDFDB.dotCN._cloaksplusdetailswrapper} {
 						position: fixed;
 						bottom: 10px;
 						left: 15px;
 						right: 15px;
 						pointer-events: none;
 					}
-					${BDFDB.dotCN._imageutilitiesdetails} {
+					${BDFDB.dotCN._cloaksplusdetails} {
 						color: #dcddde;
 						margin-top: 5px;
 						font-size: 14px;
@@ -272,23 +272,23 @@ module.exports = (_ => {
 						overflow: hidden;
 						text-overflow: ellipsis;
 					}
-					${BDFDB.dotCN._imageutilitiesdetailslabel} {
+					${BDFDB.dotCN._cloaksplusdetailslabel} {
 						display: inline-block;
 						width: 80px;
 						font-weight: 600;
 					}
-					${BDFDB.dotCN._imageutilitieslense} {
+					${BDFDB.dotCN._cloakspluslense} {
 						border: 2px solid var(--bdfdb-blurple);
 					}
-					${BDFDB.dotCN._imageutilitiesoperations} {
+					${BDFDB.dotCN._cloaksplusoperations} {
 						position: absolute;
 						display: flex;
 					}
-					${BDFDB.dotCNS._imageutilitiesoperations + BDFDB.dotCN.downloadlink} {
+					${BDFDB.dotCNS._cloaksplusoperations + BDFDB.dotCN.downloadlink} {
 						position: relative !important;
 						white-space: nowrap !important;
 					}
-					${BDFDB.dotCNS._imageutilitiesoperations + BDFDB.dotCN.anchor + BDFDB.dotCN.downloadlink} {
+					${BDFDB.dotCNS._cloaksplusoperations + BDFDB.dotCN.anchor + BDFDB.dotCN.downloadlink} {
 						margin: 0 !important;
 					}
 				`;
@@ -542,7 +542,7 @@ module.exports = (_ => {
                     BDFDB.TimeUtils.clear(viewedImageTimeout);
 
                     let modal = BDFDB.DOMUtils.getParent(BDFDB.dotCN.modal, e.node);
-                    if (modal) modal.className = BDFDB.DOMUtils.formatClassName(modal.className, this.settings.viewerSettings.galleryMode && BDFDB.disCN._imageutilitiesgallery, this.settings.viewerSettings.details && BDFDB.disCN._imageutilitiesdetailsadded);
+                    if (modal) modal.className = BDFDB.DOMUtils.formatClassName(modal.className, this.settings.viewerSettings.galleryMode && BDFDB.disCN._cloaksplusgallery, this.settings.viewerSettings.details && BDFDB.disCN._cloaksplusdetailsadded);
                 }
                 else if (e.methodname == "componentWillUnmount") {
                     firstViewedImage = null;
@@ -599,7 +599,7 @@ module.exports = (_ => {
                             })
                         }));
                         children[index] = BDFDB.ReactUtils.createElement("span", {
-                            className: BDFDB.disCN._imageutilitiesoperations,
+                            className: BDFDB.disCN._cloaksplusoperations,
                             children: [
                                 children[index],
                                 this.settings.viewerSettings.saveImage && [
@@ -660,17 +660,17 @@ module.exports = (_ => {
 
                         if (this.settings.viewerSettings.details) {
                             e.returnvalue.props.children.push(BDFDB.ReactUtils.createElement("div", {
-                                className: BDFDB.disCN._imageutilitiesdetailswrapper,
+                                className: BDFDB.disCN._cloaksplusdetailswrapper,
                                 children: [
                                     e.instance.props.alt && {label: "Alt", text: e.instance.props.alt},
                                     {label: "Source", text: url},
                                     {label: "Size", text: `${e.instance.props.width}x${e.instance.props.height}px`},
                                     cachedImages && cachedImages.amount && cachedImages.amount > 1 && {label: "Image", text: `${cachedImages.index + 1 || 1} of ${cachedImages.amount}`}
                                 ].filter(n => n).map(data => BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextElement, {
-                                    className: BDFDB.disCN._imageutilitiesdetails,
+                                    className: BDFDB.disCN._cloaksplusdetails,
                                     children: [
                                         BDFDB.ReactUtils.createElement("div", {
-                                            className: BDFDB.disCN._imageutilitiesdetailslabel,
+                                            className: BDFDB.disCN._cloaksplusdetailslabel,
                                             children: data.label + ":"
                                         }),
                                         data.text
@@ -736,14 +736,14 @@ module.exports = (_ => {
                         }
                         else {
                             if (cachedImages.all[cachedImages.index - 1]) e.returnvalue.props.children.push(BDFDB.ReactUtils.createElement(LazyImageSiblingComponent, {
-                                className: BDFDB.disCN._imageutilitiesprevious,
+                                className: BDFDB.disCN._cloaksplusprevious,
                                 modalInstance: e.instance,
                                 url: this.getImageSrc(cachedImages.all[cachedImages.index - 1].thumbnail || cachedImages.all[cachedImages.index - 1]),
                                 offset: -1,
                                 svgIcon: BDFDB.LibraryComponents.SvgIcon.Names.LEFT_CARET
                             }));
                             if (cachedImages.all[cachedImages.index + 1]) e.returnvalue.props.children.push(BDFDB.ReactUtils.createElement(LazyImageSiblingComponent, {
-                                className: BDFDB.disCN._imageutilitiesnext,
+                                className: BDFDB.disCN._cloaksplusnext,
                                 modalInstance: e.instance,
                                 url: this.getImageSrc(cachedImages.all[cachedImages.index + 1].thumbnail || cachedImages.all[cachedImages.index + 1]),
                                 offset: 1,
@@ -771,7 +771,7 @@ module.exports = (_ => {
                         BDFDB.ReactUtils.forceUpdate(e.instance);
                     }
                     let isVideo = (typeof e.instance.props.children == "function" && e.instance.props.children(Object.assign({}, e.instance.props, {size: e.instance.props})) || {type: {}}).type.displayName == "Video";
-                    if (this.settings.viewerSettings.zoomMode && !isVideo && !BDFDB.DOMUtils.containsClass(e.node.parentElement, BDFDB.disCN._imageutilitiessibling) && BDFDB.ReactUtils.findOwner(BDFDB.ReactUtils.getInstance(e.node), {name: "ImageModal", up: true})) {
+                    if (this.settings.viewerSettings.zoomMode && !isVideo && !BDFDB.DOMUtils.containsClass(e.node.parentElement, BDFDB.disCN._cloaksplussibling) && BDFDB.ReactUtils.findOwner(BDFDB.ReactUtils.getInstance(e.node), {name: "ImageModal", up: true})) {
                         e.node.addEventListener("mousedown", event => {
                             if (event.which != 1) return;
                             BDFDB.ListenerUtils.stopEvent(event);
@@ -780,9 +780,9 @@ module.exports = (_ => {
 
                             let imgRects = BDFDB.DOMUtils.getRects(e.node.firstElementChild);
 
-                            let lens = BDFDB.DOMUtils.create(`<div class="${BDFDB.disCN._imageutilitieslense}" style="border-radius: 50% !important; pointer-events: none !important; z-index: 10000 !important; width: ${this.settings.zoomSettings.lensSize}px !important; height: ${this.settings.zoomSettings.lensSize}px !important; position: fixed !important;"><div style="position: absolute !important; top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important;"><${e.node.firstElementChild.tagName} src="${e.instance.props.src}" style="width: ${imgRects.width * this.settings.zoomSettings.zoomLevel}px; height: ${imgRects.height * this.settings.zoomSettings.zoomLevel}px; position: fixed !important;${this.settings.zoomSettings.pixelMode ? " image-rendering: pixelated !important;" : ""}"${e.node.firstElementChild.tagName == "VIDEO" ? " loop autoplay" : ""}></${e.node.firstElementChild.tagName}></div></div>`);
+                            let lens = BDFDB.DOMUtils.create(`<div class="${BDFDB.disCN._cloakspluslense}" style="border-radius: 50% !important; pointer-events: none !important; z-index: 10000 !important; width: ${this.settings.zoomSettings.lensSize}px !important; height: ${this.settings.zoomSettings.lensSize}px !important; position: fixed !important;"><div style="position: absolute !important; top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important;"><${e.node.firstElementChild.tagName} src="${e.instance.props.src}" style="width: ${imgRects.width * this.settings.zoomSettings.zoomLevel}px; height: ${imgRects.height * this.settings.zoomSettings.zoomLevel}px; position: fixed !important;${this.settings.zoomSettings.pixelMode ? " image-rendering: pixelated !important;" : ""}"${e.node.firstElementChild.tagName == "VIDEO" ? " loop autoplay" : ""}></${e.node.firstElementChild.tagName}></div></div>`);
                             let pane = lens.firstElementChild.firstElementChild;
-                            let backdrop = BDFDB.DOMUtils.create(`<div class="${BDFDB.disCN._imageutilitieslensebackdrop}" style="background: rgba(0, 0, 0, 0.3) !important; position: absolute !important; top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; pointer-events: none !important; z-index: 8000 !important;"></div>`);
+                            let backdrop = BDFDB.DOMUtils.create(`<div class="${BDFDB.disCN._cloakspluslensebackdrop}" style="background: rgba(0, 0, 0, 0.3) !important; position: absolute !important; top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; pointer-events: none !important; z-index: 8000 !important;"></div>`);
                             let appMount = document.querySelector(BDFDB.dotCN.appmount);
                             appMount.appendChild(lens);
                             appMount.appendChild(backdrop);
