@@ -1,6 +1,6 @@
 /**
  * @name CloaksPlusImageUtilitys
- * @author Soft
+ * @author Softiscold
  * @authorId 437098129373003776
  * @version 1.7.4
  * @description adds a few more Utilities to help enhance the cape verification process.
