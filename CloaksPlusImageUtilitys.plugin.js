@@ -2,12 +2,12 @@
  * @name CloaksPlusImageUtilitys
  * @author Softiscold
  * @authorId 437098129373003776
- * @version 1.8.9
+ * @version 1.9.1
  * @description adds a few more Utilities to help enhance the cape verification process.
  * @donate https://www.paypal.me/GamingReflexYT
  * @website https://softiscold.xyz
  * @source https://github.com/softiscold/plugins/
- * @updateUrl https://github.com/softiscold/plugins/blob/master/CloaksPlusImageUtilitys.plugin.js
+ * @updateUrl https://raw.githubusercontent.com/softiscold/plugins/master/CloaksPlusImageUtilitys.plugin.js
  */
 
 module.exports = (_ => {
@@ -15,12 +15,13 @@ module.exports = (_ => {
         "info": {
             "name": "Cloaks+ Image Utilities",
             "author": "Soft",
-            "version": "1.8.9",
+            "version": "1.9.1",
             "description": "Adds a few more Utilities to help enhance the cape verification process."
         },
         "changeLog": {
             "fixed": {
                 "FIle size": "We have removed various unused code and added some new code. to make the plugin more efficient.",
+                "AutoUpdate Feature": "we have fixed the auto update feature to work with in the new version.",
                 "Version": "This plugin is currently in beta. Some features may not work as intended if you have found a bug please report it to the plugin's GitHub page."
             },
             "added": {
