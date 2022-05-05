@@ -2,7 +2,7 @@
  * @name CloaksPlusImageUtilitys
  * @author Softiscold
  * @authorId 437098129373003776
- * @version 1.8.6
+ * @version 1.8.9
  * @description adds a few more Utilities to help enhance the cape verification process.
  * @donate https://www.paypal.me/GamingReflexYT
  * @website https://softiscold.xyz
@@ -15,15 +15,17 @@ module.exports = (_ => {
         "info": {
             "name": "Cloaks+ Image Utilities",
             "author": "Soft",
-            "version": "1.8.6",
+            "version": "1.8.9",
             "description": "Adds a few more Utilities to help enhance the cape verification process."
         },
         "changeLog": {
             "fixed": {
-                "start": "When the plugin is loaded, the plugin will now start as intended",
-                "version": "This plugin is currently in beta. Some features may not work as intended if you have found a bug please report it to the plugin's GitHub page.",
-                "update": "The plugin will now update as intended and will notify you when it has updated"
-            }
+                "FIle size": "We have removed various unused code and added some new code. to make the plugin more efficient.",
+                "Version": "This plugin is currently in beta. Some features may not work as intended if you have found a bug please report it to the plugin's GitHub page."
+            },
+            "added": {
+                "Tineye reverse image search": ["from your suggestions we've added a reverse image search for tineye.com"],
+            },
         },
     };
 
@@ -109,6 +111,9 @@ module.exports = (_ => {
                 cachedImages = null;
 
                 this.defaults = {
+                    TinEyeEngine: {
+                        TinEye:		{value: true, 	name: "TinEye", 	url: "https://tineye.com/search?url=" + imgUrlReplaceString},
+                    },
                     engines: {
                         Google:		{value: true, 	name: "Google", 	url: "https://images.google.com/searchbyimage?image_url=" + imgUrlReplaceString}
                     }
@@ -126,115 +131,6 @@ module.exports = (_ => {
                     }
                 };
 
-                this.css = `
-					${BDFDB.dotCN._cloaksplusimagedetails} {
-						display: inline-flex;
-					}
-					${BDFDB.dotCNS.spoilerhidden + BDFDB.dotCN._cloaksplusimagedetails} {
-						visibility: hidden;
-					}
-					span + ${BDFDB.dotCN._cloaksplusimagedetails} {
-						margin-left: 12px;
-					}
-					${BDFDB.dotCN._cloaksplusimagedetails} > * {
-						display: inline-block;
-						margin-right: 12px;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-					}
-					${BDFDB.dotCN._cloaksplusimagedetails} > a {
-						max-width: 300px;
-					}
-					span + ${BDFDB.dotCN._cloaksplusimagedetails} > a {
-						max-width: 200px;
-					}
-					${BDFDB.dotCN._cloaksplusimagedetails} > span {
-						max-width: 100px;
-					}
-					${BDFDB.dotCN._cloaksplusgallery},
-					${BDFDB.dotCN._cloaksplusdetailsadded} {
-						transform: unset !important;
-						filter: unset !important;
-						backdrop-filter: unset !important;
-					}
-					${BDFDB.dotCN._cloaksplussibling} {
-						display: flex;
-						align-items: center;
-						position: fixed;
-						top: 50%;
-						bottom: 50%;
-						cursor: pointer;
-					}
-					${BDFDB.dotCN._cloaksplusprevious} {
-						justify-content: flex-end;
-						right: 90%;
-					} 
-					${BDFDB.dotCN._cloaksplusnext} {
-						justify-content: flex-start;
-						left: 90%;
-					}
-					${BDFDB.dotCN._cloaksplusswitchicon} {
-						position: absolute;
-						background: rgba(0, 0, 0, 0.3);
-						border-radius: 50%;
-						padding: 15px;
-						transition: all 0.3s ease;
-					}
-					${BDFDB.dotCNS._cloaksplusprevious + BDFDB.dotCN._cloaksplusswitchicon} {
-						right: 10px;
-					} 
-					${BDFDB.dotCNS._cloaksplusnext + BDFDB.dotCN._cloaksplusswitchicon} {
-						left: 10px;
-					}
-					${BDFDB.dotCNS._cloaksplussibling + BDFDB.dotCN.spinner} {
-						position: absolute;
-					}
-					${BDFDB.dotCNS._cloaksplusprevious + BDFDB.dotCN.spinner} {
-						right: 21px;
-					}
-					${BDFDB.dotCNS._cloaksplusnext + BDFDB.dotCN.spinner} {
-						left: 21px;
-					}
-					${BDFDB.dotCN._cloaksplussibling}:hover ${BDFDB.dotCN._cloaksplusswitchicon} {
-						background: rgba(0, 0, 0, 0.5);
-					}
-					${BDFDB.dotCN._cloaksplusdetailswrapper} {
-						position: fixed;
-						bottom: 10px;
-						left: 15px;
-						right: 15px;
-						pointer-events: none;
-					}
-					${BDFDB.dotCN._cloaksplusdetails} {
-						color: #dcddde;
-						margin-top: 5px;
-						font-size: 14px;
-						font-weight: 500;
-						white-space: nowrap;
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
-					${BDFDB.dotCN._cloaksplusdetailslabel} {
-						display: inline-block;
-						width: 80px;
-						font-weight: 600;
-					}
-					${BDFDB.dotCN._cloakspluslense} {
-						border: 2px solid var(--bdfdb-blurple);
-					}
-					${BDFDB.dotCN._cloaksplusoperations} {
-						position: absolute;
-						display: flex;
-					}
-					${BDFDB.dotCNS._cloaksplusoperations + BDFDB.dotCN.downloadlink} {
-						position: relative !important;
-						white-space: nowrap !important;
-					}
-					${BDFDB.dotCNS._cloaksplusoperations + BDFDB.dotCN.anchor + BDFDB.dotCN.downloadlink} {
-						margin: 0 !important;
-					}
-				`;
             }
 
             onStart () {
@@ -385,7 +281,10 @@ module.exports = (_ => {
             createUrlMenu (instance, urlData, target) {
                 let enabledEngines = BDFDB.ObjectUtils.filter(this.settings.engines, n => n);
                 let enginesWithoutAll = BDFDB.ObjectUtils.filter(enabledEngines, n => n != "_all", true);
+                let enabledTinEyeEngine = BDFDB.ObjectUtils.filter(this.settings.TinEyeEngine, n => n);
+                let TinEyeEngineWithoutAll = BDFDB.ObjectUtils.filter(enabledTinEyeEngine, n => n != "_all", true);
                 let engineKeys = Object.keys(enginesWithoutAll);
+                let TinEyeEngineKeys = Object.keys(TinEyeEngineWithoutAll);
                 let locations = Object.keys(ownLocations).filter(n => ownLocations[n].enabled);
                 let isVideo = this.isValid(urlData.file, "video");
                 let type = isVideo ? BDFDB.LanguageUtils.LanguageStrings.VIDEO : BDFDB.LanguageUtils.LanguageStrings.IMAGE;
@@ -399,8 +298,9 @@ module.exports = (_ => {
                             label: "",
                             id: BDFDB.ContextMenuUtils.createItemId(this.name, "separator-2")
                         }),
+                        //reverse image search google
                         !this.isValid(urlData.original, "searchable") || !engineKeys.length ? null : engineKeys.length == 1 ? BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                            label: "Reverse Image Search",
+                            label: "Reverse Image Search (Google)",
                             id: BDFDB.ContextMenuUtils.createItemId(this.name, "single-search"),
                             persisting: true,
                             action: event => {
@@ -426,6 +326,39 @@ module.exports = (_ => {
                                     if (!event.shiftKey) BDFDB.ContextMenuUtils.close(instance);
                                     if (key == "_all") {
                                         for (let key2 in enginesWithoutAll) open(urlData.original, key2);
+                                    }
+                                    else open(urlData.original, key);
+                                }
+                            }))
+                        }),
+                        //reverse image search tineye
+                        !this.isValid(urlData.original, "searchable") || !TinEyeEngineKeys.length ? null : engineKeys.length == 1 ? BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+                            label: "Reverse Image Search (Tineye)",
+                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "single-search"),
+                            persisting: true,
+                            action: event => {
+                                if (!event.shiftKey) BDFDB.ContextMenuUtils.close(instance);
+                                BDFDB.DiscordUtils.openLink(this.defaults.TinEyeEngine[TinEyeEngineKeys[0]].url.replace(imgUrlReplaceString, encodeURIComponent(urlData.original)), {
+                                    minimized: event.shiftKey
+                                });
+                            }
+                        }) : BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+                            label: this.labels.context_searchwith.replace("{{var0}}", type),
+                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "submenu-search"),
+                            children: !TinEyeEngineKeys.length ? BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+                                label: this.labels.submenu_disabled,
+                                id: BDFDB.ContextMenuUtils.createItemId(this.name, "disabled"),
+                                disabled: true
+                            }) : Object.keys(enabledTinEyeEngine).map(key => BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+                                label: this.defaults.TinEyeEngine[key].name,
+                                id: BDFDB.ContextMenuUtils.createItemId(this.name, "search", key),
+                                color: key == "_all" ? BDFDB.LibraryComponents.MenuItems.Colors.DANGER : BDFDB.LibraryComponents.MenuItems.Colors.DEFAULT,
+                                persisting: true,
+                                action: event => {
+                                    const open = (url, k) => BDFDB.DiscordUtils.openLink(this.defaults.TinEyeEngine[k].url.replace(imgUrlReplaceString, this.defaults.TinEyeEngine[k].raw ? url : encodeURIComponent(url)), {minimized: event.shiftKey});
+                                    if (!event.shiftKey) BDFDB.ContextMenuUtils.close(instance);
+                                    if (key == "_all") {
+                                        for (let key2 in TinEyeEngineWithoutAll) open(urlData.original, key2);
                                     }
                                     else open(urlData.original, key);
                                 }
