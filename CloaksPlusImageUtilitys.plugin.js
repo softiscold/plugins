@@ -1,5 +1,5 @@
 /**
- * @name Cloaks+-Image-Utilities
+ * @name CloaksPlusImageUtilitys
  * @author Softiscold
  * @authorId 437098129373003776
  * @version 1.9.7
