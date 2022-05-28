@@ -1,8 +1,8 @@
 /**
- * @name CloaksPlusImageUtilitys
+ * @name Cloaks+-Image-Utilities
  * @author Softiscold
  * @authorId 437098129373003776
- * @version 1.9.1
+ * @version 1.9.7
  * @description adds a few more Utilities to help enhance the cape verification process.
  * @donate https://www.paypal.me/GamingReflexYT
  * @website https://softiscold.xyz
@@ -15,17 +15,16 @@ module.exports = (_ => {
         "info": {
             "name": "Cloaks+ Image Utilities",
             "author": "Soft",
-            "version": "1.9.1",
+            "version": "1.9.7",
             "description": "Adds a few more Utilities to help enhance the cape verification process."
         },
         "changeLog": {
-            "fixed": {
-                "FIle size": "We have removed various unused code and added some new code. to make the plugin more efficient.",
-                "AutoUpdate Feature": "we have fixed the auto update feature to work with in the new version.",
-                "Version": "This plugin is currently in beta. Some features may not work as intended if you have found a bug please report it to the plugin's GitHub page."
-            },
             "added": {
-                "Tineye reverse image search": ["from your suggestions we've added a reverse image search for tineye.com"],
+                "Avatar reverse search": ["we have added a reverse search feature to players avatars."],
+            },
+            "fixed": {
+                "File size": "we have fixed the issue with the file size.",
+                "Version": "This plugin is currently in beta. Some features may not work as intended if you have found a bug please report it to the plugin's GitHub page."
             },
         },
     };
@@ -69,13 +68,8 @@ module.exports = (_ => {
         }
     } : (([Plugin, BDFDB]) => {
         var _this;
-        var firedEvents = [];
-        var ownLocations = {}, downloadsFolder;
 
-        var firstViewedImage, viewedImage, viewedImageTimeout;
         var cachedImages;
-
-        const imgUrlReplaceString = "SOFTISCOLD_BD_REVERSEIMAGESEARCH_REPLACE_IMAGEURL";
 
         const fileTypes = {
             "3gp":		{copyable: false,	searchable: false,	video: true},
@@ -106,18 +100,9 @@ module.exports = (_ => {
         return class cloaksplus extends Plugin {
             onLoad () {
                 _this = this;
-                firedEvents = [];
-                firstViewedImage = null;
-                viewedImage = null;
                 cachedImages = null;
 
                 this.defaults = {
-                    TinEyeEngine: {
-                        TinEye:		{value: true, 	name: "TinEye", 	url: "https://tineye.com/search?url=" + imgUrlReplaceString},
-                    },
-                    engines: {
-                        Google:		{value: true, 	name: "Google", 	url: "https://images.google.com/searchbyimage?image_url=" + imgUrlReplaceString}
-                    }
                 };
 
                 this.patchedModules = {
@@ -169,9 +154,6 @@ module.exports = (_ => {
             }
 
             onStop () {
-                this.cleanupListeners("Gallery");
-                this.cleanupListeners("Zoom");
-
                 this.forceUpdateAll();
             }
 
@@ -185,9 +167,6 @@ module.exports = (_ => {
             }
 
             forceUpdateAll () {
-                const loadedLocations = BDFDB.DataUtils.load(this, "ownLocations");
-                ownLocations = Object.assign(!loadedLocations || !loadedLocations.Downloads ? {"Downloads": {enabled:true, location: this.getDownloadLocation()}} : {}, loadedLocations);
-
                 BDFDB.PatchUtils.forceAllUpdates(this);
                 BDFDB.MessageUtils.rerenderAll();
             }
@@ -280,93 +259,48 @@ module.exports = (_ => {
                 }));
             }
             createUrlMenu (instance, urlData, target) {
-                let enabledEngines = BDFDB.ObjectUtils.filter(this.settings.engines, n => n);
-                let enginesWithoutAll = BDFDB.ObjectUtils.filter(enabledEngines, n => n != "_all", true);
-                let enabledTinEyeEngine = BDFDB.ObjectUtils.filter(this.settings.TinEyeEngine, n => n);
-                let TinEyeEngineWithoutAll = BDFDB.ObjectUtils.filter(enabledTinEyeEngine, n => n != "_all", true);
-                let engineKeys = Object.keys(enginesWithoutAll);
-                let TinEyeEngineKeys = Object.keys(TinEyeEngineWithoutAll);
-                let locations = Object.keys(ownLocations).filter(n => ownLocations[n].enabled);
-                let isVideo = this.isValid(urlData.file, "video");
-                let type = isVideo ? BDFDB.LanguageUtils.LanguageStrings.VIDEO : BDFDB.LanguageUtils.LanguageStrings.IMAGE;
                 return BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuGroup, {
                     children: [
-                        BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                            label: "Cloaks Plus Utilitys",
-                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "separator-1")
-                        }),
-                        BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                            label: "",
-                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "separator-2")
-                        }),
-                        //reverse image search google
-                        !this.isValid(urlData.original, "searchable") || !engineKeys.length ? null : engineKeys.length == 1 ? BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+                        !this.isValid(urlData.original, "searchable") || BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
                             label: "Reverse Image Search (Google)",
-                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "single-search"),
-                            persisting: true,
+                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "google-attachment"),
                             action: event => {
-                                if (!event.shiftKey) BDFDB.ContextMenuUtils.close(instance);
-                                BDFDB.DiscordUtils.openLink(this.defaults.engines[engineKeys[0]].url.replace(imgUrlReplaceString, encodeURIComponent(urlData.original)), {
-                                    minimized: event.shiftKey
-                                });
+                                BDFDB.DiscordUtils.openLink("https://images.google.com/searchbyimage?image_url=" + encodeURIComponent(urlData.original) ), {}
                             }
-                        }) : BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                            label: this.labels.context_searchwith.replace("{{var0}}", type),
-                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "submenu-search"),
-                            children: !engineKeys.length ? BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                                label: this.labels.submenu_disabled,
-                                id: BDFDB.ContextMenuUtils.createItemId(this.name, "disabled"),
-                                disabled: true
-                            }) : Object.keys(enabledEngines).map(key => BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                                label: this.defaults.engines[key].name,
-                                id: BDFDB.ContextMenuUtils.createItemId(this.name, "search", key),
-                                color: key == "_all" ? BDFDB.LibraryComponents.MenuItems.Colors.DANGER : BDFDB.LibraryComponents.MenuItems.Colors.DEFAULT,
-                                persisting: true,
-                                action: event => {
-                                    const open = (url, k) => BDFDB.DiscordUtils.openLink(this.defaults.engines[k].url.replace(imgUrlReplaceString, this.defaults.engines[k].raw ? url : encodeURIComponent(url)), {minimized: event.shiftKey});
-                                    if (!event.shiftKey) BDFDB.ContextMenuUtils.close(instance);
-                                    if (key == "_all") {
-                                        for (let key2 in enginesWithoutAll) open(urlData.original, key2);
-                                    }
-                                    else open(urlData.original, key);
-                                }
-                            }))
                         }),
-                        //reverse image search tineye
-                        !this.isValid(urlData.original, "searchable") || !TinEyeEngineKeys.length ? null : engineKeys.length == 1 ? BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                            label: "Reverse Image Search (Tineye)",
-                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "single-search"),
-                            persisting: true,
+                        !this.isValid(urlData.original, "searchable") || BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+                            label: "Reverse Image Search (TinEye)",
+                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "tineye-attachment"),
                             action: event => {
-                                if (!event.shiftKey) BDFDB.ContextMenuUtils.close(instance);
-                                BDFDB.DiscordUtils.openLink(this.defaults.TinEyeEngine[TinEyeEngineKeys[0]].url.replace(imgUrlReplaceString, encodeURIComponent(urlData.original)), {
-                                    minimized: event.shiftKey
-                                });
+                                BDFDB.DiscordUtils.openLink("https://tineye.com/search?url=" + encodeURIComponent(urlData.original) ), {}
                             }
-                        }) : BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                            label: this.labels.context_searchwith.replace("{{var0}}", type),
-                            id: BDFDB.ContextMenuUtils.createItemId(this.name, "submenu-search"),
-                            children: !TinEyeEngineKeys.length ? BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                                label: this.labels.submenu_disabled,
-                                id: BDFDB.ContextMenuUtils.createItemId(this.name, "disabled"),
-                                disabled: true
-                            }) : Object.keys(enabledTinEyeEngine).map(key => BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
-                                label: this.defaults.TinEyeEngine[key].name,
-                                id: BDFDB.ContextMenuUtils.createItemId(this.name, "search", key),
-                                color: key == "_all" ? BDFDB.LibraryComponents.MenuItems.Colors.DANGER : BDFDB.LibraryComponents.MenuItems.Colors.DEFAULT,
-                                persisting: true,
-                                action: event => {
-                                    const open = (url, k) => BDFDB.DiscordUtils.openLink(this.defaults.TinEyeEngine[k].url.replace(imgUrlReplaceString, this.defaults.TinEyeEngine[k].raw ? url : encodeURIComponent(url)), {minimized: event.shiftKey});
-                                    if (!event.shiftKey) BDFDB.ContextMenuUtils.close(instance);
-                                    if (key == "_all") {
-                                        for (let key2 in TinEyeEngineWithoutAll) open(urlData.original, key2);
-                                    }
-                                    else open(urlData.original, key);
-                                }
-                            }))
-                        })
-                    ].filter(n => n)
+                        }),
+                    ]
                 });
+            }
+
+            onUserContextMenu (e) {
+                if (e.instance.props.user && e.subType == "useBlockUserItem") {
+                    if (e.returnvalue.length) e.returnvalue.push(BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuSeparator, {}));
+                    e.returnvalue.push(BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+                        label: "Reverse Image Search (Google)",
+                        id: BDFDB.ContextMenuUtils.createItemId(this.name, "main-subitem"),
+                        persisting: true,
+                        action: event => {
+                            BDFDB.DiscordUtils.openLink("https://images.google.com/searchbyimage?image_url=" + e.instance.props.user.getAvatarURL()), {
+                            };
+                        }
+                    }));
+                    e.returnvalue.push(BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
+                        label: "Reverse Image Search (TinEye)",
+                        id: BDFDB.ContextMenuUtils.createItemId(this.name, "main-subitem"),
+                        persisting: true,
+                        action: event => {
+                            BDFDB.DiscordUtils.openLink("https://tineye.com/search?url=" + e.instance.props.user.getAvatarURL()), {
+                            };
+                        }
+                    }));
+                }
             }
 
         };
