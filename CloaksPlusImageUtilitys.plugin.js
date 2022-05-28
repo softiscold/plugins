@@ -14,7 +14,7 @@ module.exports = (_ => {
     const config = {
         "info": {
             "name": "Cloaks+ Image Utilities",
-            "author": "Soft",
+            "author": "Softiscold",
             "version": "1.9.7",
             "description": "Adds a few more Utilities to help enhance the cape verification process."
         },
